@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Economic YouTube Action Items Result v1",
+  "type": "object",
+  "required": ["run_id", "generated_at", "repo", "results"],
+  "properties": {
+    "run_id": { "type": "string", "minLength": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "repo": { "const": "economic-youtube-action-items-skill" },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["status", "video", "transcript_chars", "partial", "action_items", "warnings"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["complete", "partial", "ended_live", "unavailable", "error"]
+          },
+          "video": {
+            "type": "object",
+            "required": ["video_id", "url", "channel_name", "title", "was_live"],
+            "properties": {
+              "video_id": { "type": "string" },
+              "url": { "type": "string" },
+              "channel_name": { "type": "string" },
+              "title": { "type": "string" },
+              "was_live": { "type": "boolean" }
+            }
+          },
+          "transcript_chars": { "type": "integer", "minimum": 0 },
+          "partial": {
+            "type": "object",
+            "required": ["is_partial"],
+            "properties": {
+              "is_partial": { "type": "boolean" },
+              "coverage_ratio": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+              "reason": { "type": ["string", "null"] }
+            }
+          },
+          "action_items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["action", "priority"],
+              "properties": {
+                "action": { "type": "string" },
+                "priority": { "type": "string", "enum": ["HIGH", "MEDIUM", "LOW"] },
+                "condition": { "type": ["string", "null"] }
+              }
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "error": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}

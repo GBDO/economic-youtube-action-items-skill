@@ -1,0 +1,32 @@
+{
+  "run_id": "abc123",
+  "generated_at": "2026-02-16T00:00:00+00:00",
+  "repo": "economic-youtube-action-items-skill",
+  "results": [
+    {
+      "status": "complete",
+      "video": {
+        "video_id": "dQw4w9WgXcQ",
+        "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "channel_name": "Sample Channel",
+        "title": "Sample Title",
+        "was_live": false
+      },
+      "transcript_chars": 1500,
+      "partial": {
+        "is_partial": false,
+        "coverage_ratio": null,
+        "reason": null
+      },
+      "action_items": [
+        {
+          "action": "금리 발표 전 포트폴리오 비중을 점검해야 한다",
+          "priority": "MEDIUM",
+          "condition": null
+        }
+      ],
+      "warnings": [],
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "run_id": "def456",
+  "generated_at": "2026-02-16T00:00:00+00:00",
+  "repo": "economic-youtube-action-items-skill",
+  "results": [
+    {
+      "status": "partial",
+      "video": {
+        "video_id": "dQw4w9WgXcQ",
+        "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "channel_name": "Sample Channel",
+        "title": "Sample Title",
+        "was_live": false
+      },
+      "transcript_chars": 220,
+      "partial": {
+        "is_partial": true,
+        "coverage_ratio": 0.31,
+        "reason": "below_min_chars"
+      },
+      "action_items": [
+        {
+          "action": "오늘 종가 기준으로 손절 라인을 체크해야 한다",
+          "priority": "HIGH",
+          "condition": null
+        }
+      ],
+      "warnings": ["Partial transcript detected."],
+      "error": null
+    }
+  ]
+}
