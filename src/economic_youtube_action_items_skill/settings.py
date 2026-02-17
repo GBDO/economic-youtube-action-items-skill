@@ -40,6 +40,7 @@ def _load_dotenv() -> None:
 class Settings:
     min_transcript_chars: int = 700
     allow_partial: bool = True
+    insecure_ssl_fallback: bool = True
     max_items: int = 7
     transcript_languages: str = "ko,en"
     target_channels: str = ""
@@ -58,6 +59,10 @@ class Settings:
         return cls(
             min_transcript_chars=max(100, int(os.getenv("EYT_ACTION_MIN_TRANSCRIPT_CHARS", "700"))),
             allow_partial=_bool_from_env(os.getenv("EYT_ACTION_ALLOW_PARTIAL"), True),
+            insecure_ssl_fallback=_bool_from_env(
+                os.getenv("EYT_ACTION_INSECURE_SSL_FALLBACK"),
+                True,
+            ),
             max_items=min(20, max(1, int(os.getenv("EYT_ACTION_MAX_ITEMS", "7")))),
             transcript_languages=os.getenv("EYT_ACTION_TRANSCRIPT_LANGUAGES", "ko,en"),
             target_channels=os.getenv("EYT_ACTION_TARGET_CHANNELS", ""),

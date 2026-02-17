@@ -12,6 +12,7 @@
 ## Features
 
 - 종료된 라이브 영상(`ended_live`) 분기
+- 자막 조회 SSL 인증 실패 시 `verify=False` 재시도(기본 활성화, 경고 출력)
 - 환경변수 기반 설정 (`EYT_ACTION_*`)
 - Markdown / JSON 출력
 - Contract v1 JSON Schema 포함
@@ -58,6 +59,7 @@ eyt-action-items generate
 |---|---:|---|
 | `EYT_ACTION_MIN_TRANSCRIPT_CHARS` | `700` | partial/complete 판단 기준 |
 | `EYT_ACTION_ALLOW_PARTIAL` | `true` | 부분 자막 허용 여부 |
+| `EYT_ACTION_INSECURE_SSL_FALLBACK` | `true` | SSL 인증 실패 시 `verify=False` 재시도 허용 여부 |
 | `EYT_ACTION_MAX_ITEMS` | `7` | 영상당 최대 액션 아이템 수 |
 | `EYT_ACTION_TRANSCRIPT_LANGUAGES` | `ko,en` | 자막 언어 우선순위 |
 | `EYT_ACTION_TARGET_CHANNELS` | _empty_ | 채널 토큰 목록(쉼표 구분, 채널명/채널코드/핸들) |
@@ -65,6 +67,12 @@ eyt-action-items generate
 | `EYT_ACTION_LOG_DIR` | `logs` | 로그 디렉터리 (`EYT_LOG_DIR` 공통 변수도 지원) |
 | `EYT_ACTION_RESULT_DIR` | `results` | 결과 파일 디렉터리 (`EYT_RESULT_DIR` 공통 변수도 지원) |
 | `EYT_ACTION_MOCK_TRANSCRIPT_TEXT` | _empty_ | 테스트용 강제 자막 |
+
+## Warning diagnostics
+
+- 자막 조회 실패 시 결과 `warnings`에 예외 클래스 + 메시지가 포함됩니다.
+- SSL 인증 실패로 `verify=False` 재시도를 수행한 경우, 해당 사실이 `warnings`에 기록됩니다.
+- 채널 토큰 해석 실패는 `invalid handle format`, `could not resolve channel id`, `no uploads feed`처럼 원인별 메시지로 출력됩니다.
 
 ## Test
 
