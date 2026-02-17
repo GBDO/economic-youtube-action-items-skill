@@ -45,12 +45,16 @@ class Settings:
     target_channels: str = ""
     channel_video_limit: int = 5
     log_dir: str = "logs"
-    session_id: str = ""
+    result_dir: str = "results"
     mock_transcript_text: str | None = None
 
     @classmethod
     def from_env(cls) -> "Settings":
         _load_dotenv()
+        common_log_dir = os.getenv("EYT_LOG_DIR")
+        specific_log_dir = os.getenv("EYT_ACTION_LOG_DIR")
+        common_result_dir = os.getenv("EYT_RESULT_DIR")
+        specific_result_dir = os.getenv("EYT_ACTION_RESULT_DIR")
         return cls(
             min_transcript_chars=max(100, int(os.getenv("EYT_ACTION_MIN_TRANSCRIPT_CHARS", "700"))),
             allow_partial=_bool_from_env(os.getenv("EYT_ACTION_ALLOW_PARTIAL"), True),
@@ -60,8 +64,8 @@ class Settings:
             channel_video_limit=min(
                 50, max(1, int(os.getenv("EYT_ACTION_CHANNEL_VIDEO_LIMIT", "5")))
             ),
-            log_dir=os.getenv("EYT_ACTION_LOG_DIR") or os.getenv("EYT_LOG_DIR", "logs"),
-            session_id=os.getenv("EYT_ACTION_SESSION_ID") or os.getenv("EYT_SESSION_ID", ""),
+            log_dir=common_log_dir or specific_log_dir or "logs",
+            result_dir=common_result_dir or specific_result_dir or "results",
             mock_transcript_text=os.getenv("EYT_ACTION_MOCK_TRANSCRIPT_TEXT") or None,
         )
 
@@ -71,8 +75,5 @@ class Settings:
     def channels(self) -> list[str]:
         return [item.strip() for item in self.target_channels.split(",") if item.strip()]
 
-    def effective_session_id(self) -> str:
-        token = self.session_id.strip()
-        if token:
-            return token
+    def date_key(self) -> str:
         return datetime.now(timezone.utc).strftime("%Y%m%d")
